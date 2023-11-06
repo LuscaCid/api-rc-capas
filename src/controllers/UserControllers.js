@@ -13,15 +13,20 @@ class UserControllers {
     }
 
     async createUser(req,res){
+        console.log('createuser')
         const {
             name,
-            password,
-            email
+            email,
         } = req.body
+
+        let {password} = req.body
+
         const userExists = await knex('users').where({email}).first() 
         const nameAlreadyInUse = await knex("users").where({name}).first()
+
         if(userExists || nameAlreadyInUse)throw new AppError('E-mail ja registrado ou nome de usuário já registrados', 401)  
-        const hashedPassowrd = hash(password)
+
+        const hashedPassowrd = await hash(password, 8)
         await knex('users')
         .insert({
             name,
