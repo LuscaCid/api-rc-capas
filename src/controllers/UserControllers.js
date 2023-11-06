@@ -8,8 +8,6 @@ class UserControllers {
             message : 'dentro da testRoute',
             status : 200
         })
-        
-
     }
 
     async createUser(req,res){
