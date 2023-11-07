@@ -18,7 +18,7 @@ class SessionsControllers{
         if(!user) throw new AppError('Usuário ou senha inválidos', 401)
         
         const checkedPassword = await compare(password, user.password)
-        
+         
         if(!checkedPassword)throw new AppError('Usuário ou senha inválidos', 401)
 
         const {secret , expiresIn} = authConfig.jwt
