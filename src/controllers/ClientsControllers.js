@@ -6,8 +6,7 @@ class ClientsControllers{
     }
     async createClient(req, res) { 
         const { user_id } = req.query
-        console.log(user_id)
-        console.log('entrou')
+       
         const { 
             name, 
             phone,
@@ -18,16 +17,11 @@ class ClientsControllers{
             cpf,
             obs
         } = req.body
-        console.log(name, 
-            phone,
-            cep,
-            street,
-            neighborhood,
-            city,
-            cpf,
-            obs)
         
-            await knex('Clients').insert({
+        const clientexists = await knex('Clients').where({cpf}).first()
+        console.log(clientexists)
+        if(clientexists)throw new AppError('cliente ja existente', 401)
+        const client = await knex('Clients').insert({
             name,
             cpf,
             phone,
@@ -38,10 +32,10 @@ class ClientsControllers{
             neighborhood,
             created_by : user_id
             }).then(()=> {console.log('criado')}).catch(e=> console.log(e))
-
-            return res.status(200).json()
         
-    }
+        
 
+        return res.status(200).json(client)
+    }
 }
 module.exports = ClientsControllers
