@@ -1,8 +1,7 @@
 
-import { verify } from "jsonwebtoken";
+const { verify } = require('jsonwebtoken')
 const AppError = require('../utils/AppError')
-import authConfig from "../config/authConfig";
-
+const authConfig = require('../config/authConfig')
 function ensureAutenticated(req, res, next) {
 
     const authHeader = req.headers.authorization
