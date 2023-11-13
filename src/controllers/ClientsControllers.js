@@ -23,7 +23,7 @@ class ClientsControllers{
         
         if(clientexists)throw new AppError('CPF já cadastrado no sistema', 401)
         
-        const client = await knex('Clients').insert({
+        const client = await knex('Clients').insert({ 
             name,
             cpf,
             phone,

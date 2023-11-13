@@ -9,10 +9,10 @@ const AppError = require('../utils/AppError')
 class SessionsControllers{
 
     async createSession(req, res){
-        const {username, password} = req.body
+        const {email, password} = req.body
           
         const user = await knex('users')
-        .where({name : username})
+        .where({email})
         .first()
 
         if(!user) throw new AppError('Usuário ou senha inválidos', 401)
