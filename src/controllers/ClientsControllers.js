@@ -20,7 +20,9 @@ class ClientsControllers{
         
         const clientexists = await knex('Clients').where({cpf}).first()
         console.log(clientexists)
-        if(clientexists)throw new AppError('cliente ja existente', 401)
+        
+        if(clientexists)throw new AppError('CPF já cadastrado no sistema', 401)
+        
         const client = await knex('Clients').insert({
             name,
             cpf,
